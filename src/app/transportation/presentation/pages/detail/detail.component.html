@@ -1,0 +1,47 @@
+<ng-container *ngIf="transportationItinerary; else loadingTemplate">
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <a class="d-flex align-items-center pr-4 small text-primary" [routerLink]="['../../list']">
+        <i class="fas fa-arrow-left"></i>
+        <span class="font-weight-bold ml-2">Voltar para Lista</span>
+      </a>
+      <h1>
+        {{ transportationItinerary.transportationName }}
+      </h1>
+      <p class="lead">{{ transportationItinerary.transportationHash }}</p>
+    </div>
+  </div>
+
+  <section class="container">
+    <a
+      class="card text-decoration-none text-reset mb-3"
+      *ngFor="let geopoint of transportationItinerary.route"
+      href="{{ generateGoogleMapsUrl(geopoint) }}"
+      target="_blank"
+    >
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title">Latitude</h5>
+            <p class="card-text">{{ geopoint.lat }}</p>
+          </div>
+          <div class="col">
+            <h5 class="card-title">Longitude</h5>
+            <p class="card-text">{{ geopoint.lng }}</p>
+          </div>
+          <a class="d-flex align-items-center pr-4 text-primary">
+            <span class="font-weight-bold mr-2">Ver no Google Maps</span>
+            <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+      </div>
+    </a>
+  </section>
+
+</ng-container>
+<ng-template #loadingTemplate>
+  <div class="d-flex justify-content-center text-primary m-5">
+    <i class="fas fa-circle-notch fa-2x fa-spin"></i>
+  </div>
+</ng-template>
